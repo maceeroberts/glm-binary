@@ -1,0 +1,60 @@
+---
+title: "Cars Binary"
+author: "M. Roberts"
+date: "2025-09-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(knitr)
+library(leaflet)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(janitor)
+library(lme4)
+library(performance)
+library(arm)
+
+data(mtcars)
+
+cars <- mtcars
+
+small_cars <- dplyr::select(cars, mpg, vs)
+
+```
+
+
+In my first model, I ran a GLM using the binomial family and link logit to determine if there is a relationship between miles per gallon (mpg) and presence/absence of a straight engine. 
+```{r GLM, include=TRUE}
+
+ggplot(cars, aes(mpg, vs)) + 
+      geom_point() +
+      geom_smooth(method="glm", color = "firebrick", method.args=list(family="binomial"(link="logit"))) +
+      xlab ("Miles Per Gallon") +
+      ylab ("Straight Engine") #glm binomial count looking at presence/absence of vs engine type
+
+car_model <- glm(vs ~ mpg, data=cars, family=binomial)
+car_model
+```
+
+
+```{r binned residuals, include=TRUE}
+
+x <- predict(car_model)
+y <- resid(car_model)
+binnedplot(x, y)
+
+coef(car_model)
+confint(car_model)
+summary(car_model)
+
+```
+
+I calculated the maximum predicted effect on the response of a miles per gallon change by dividing the slope by 4. I took 0.43/4 = 0.1075. Turned that calculated number into a percent to get 10.75%. This means that a 1 mile per gallon difference corresponds to a 10.75% increase of a straight engine type.
+
+
+
