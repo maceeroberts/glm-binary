@@ -1,5 +1,5 @@
 ---
-title: "Cars Binary"
+title: "Engine Type"
 author: "M. Roberts"
 date: "2025-09-11"
 output: html_document
@@ -28,14 +28,21 @@ small_cars <- dplyr::select(cars, mpg, vs)
 ```
 
 
-In my first model, I ran a GLM using the binomial family and link logit to determine if there is a relationship between miles per gallon (mpg) and presence/absence of a straight engine. 
+In this example, I will be looking at the relationship between miles per gallon (mpg) and engine type (straight or v-shaped).
+
+![](engine_type.jpg)
+
+
+In my first model, I ran a GLM using the binomial family and link logit. 
 ```{r GLM, include=TRUE}
 
 ggplot(cars, aes(mpg, vs)) + 
       geom_point() +
       geom_smooth(method="glm", color = "firebrick", method.args=list(family="binomial"(link="logit"))) +
       xlab ("Miles Per Gallon") +
-      ylab ("Straight Engine") #glm binomial count looking at presence/absence of vs engine type
+      ylab ("Straight Engine") +
+      theme_classic() +
+      theme(panel.border = element_rect(fill = NA))
 
 car_model <- glm(vs ~ mpg, data=cars, family=binomial)
 car_model
