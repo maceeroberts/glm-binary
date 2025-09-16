@@ -61,7 +61,7 @@ summary(car_model)
 
 ```
 
-I calculated the maximum predicted effect on the response of a miles per gallon change by dividing the slope by 4. I took 0.43/4 = 0.1076. Turned that calculated number into a percent to get 10.76%. This means that a 1 mile per gallon difference corresponds to a 10.76% increase of a straight engine type.
+I calculated the maximum predicted effect on the response of a miles per gallon change by dividing the slope by 4. I took 0.43/4 = 0.1076. Turned that calculated number into a percent to get 10.76%. This means that a 1 mile per gallon increase corresponds to a 10.76% increase of a straight engine type.
 
 
 
